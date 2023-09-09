@@ -6,4 +6,7 @@ module.exports.basicRoutes = (app) => {
      })
 
     app.get('/findAirQuality', iqAirController.getQAirByCoord);
+    app.get('/findAllPollutionDb', iqAirController.getAllPollutions);
+    app.get('/startCron', iqAirController.startCron);
+    app.get('/mostPollutedDatetime', iqAirController.getMostPollutedDatetime);
 }

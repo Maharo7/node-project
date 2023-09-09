@@ -1,8 +1,10 @@
 const axios = require('axios');
 const envConfig = require('../config/env.config');
-const Pollution = require('../models/pollution.models');
+const { PollutionSchema } = require('../models/pollution.models');
+const mongoose = require('mongoose');
+const Pollution = mongoose.model(envConfig.collection,PollutionSchema);
 
-async function getPollutionByCoord(lat, lon) {
+exports.getPollutionByCoord = async (lat, lon) => {
     const apiKey = envConfig.API_KEY;
     const baseUrl = envConfig.IQAirUrl;
     const endpoints = envConfig.endPoints1;
@@ -12,18 +14,10 @@ async function getPollutionByCoord(lat, lon) {
         if (response === null || response === undefined) {
             throw new Error('Erreur lors de la récupération des données de qualité de l\'air.');
         } 
-        const responseData = response.data;            
-        return new Pollution(
-            responseData.data.current.pollution.ts,
-            responseData.data.current.pollution.aqius,
-            responseData.data.current.pollution.mainus,
-            responseData.data.current.pollution.aqicn,
-            responseData.data.current.pollution.maincn
-        );
-
+        const responseData = response.data;           
+        return responseData;
     } catch (error) {
         console.error(error);
         throw new Error('Erreur lors de la récupération des données de qualité de l\'air.');
     }
 }
-module.exports = { getPollutionByCoord };
