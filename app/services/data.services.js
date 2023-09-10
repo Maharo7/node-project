@@ -1,15 +1,18 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const envConfig = require('../config/env.config');
-const url = envConfig.urlDatabase;
+const url = process.env.MONGODB_URI;
 
-function connectDatabase() {
-    mongoose.connect(url)
-    .then( () => {
-        console.log('Connected to the database ')
-    })
-    .catch( (err) => {
-        console.error(`Error connecting to the database. n${err}`);
-    })
+async function connectDatabase() {
+    try {
+        await mongoose.connect(url);
+        console.log('Base de données connectées');
+        return true;
+    } catch (err) {
+        console.error(`Erreur lors de la connexion à la base. \n${err}`);
+        return false;
+    }
 }
 
 module.exports = { connectDatabase };
+

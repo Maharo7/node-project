@@ -36,7 +36,6 @@ exports.getAllPollutions = async (req, res) => {
         if(pollutionData === null || pollutionData === undefined){
             return res.status(500).json({error: 'Erreur lors de la récuperation des données de qualité de l\'air dans la base'});
         }
-        console.log("pollutionData "+JSON.stringify(pollutionData));
         res.json(pollutionData);
     } catch (error) {
         console.error(error);
@@ -55,6 +54,7 @@ exports.startCron = async (req, res) => {
 
     const schedule = `${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}`;
     console.log('schedule '+JSON.stringify(schedule));
+    
     cron.schedule(schedule, async () => {
         try {
             const parisPollutionData = await pollutionService.getPollutionByCoord(parisCoord.lat, parisCoord.lon);
@@ -70,18 +70,18 @@ exports.startCron = async (req, res) => {
             });
             try {
                 const savedPollution = await currentPollution.save();
+                console.log('Cron activé.');
                 console.log('Données de qualité de l\'air de Paris enregistrées :', savedPollution);
             } catch (err){
                 console.error('Erreur lors de l\'enregistrement des données de qualité de l\'air de Paris :', err);
                 throw err;
             };
-            console.log('Le CRON a été démarré avec succès.');
-            // res.status(200).json({ message: 'Le CRON a été démarré avec succès.' });
         } catch (error) {
             console.error('Erreur lors de la récuperation des données de qualité de l\'air de Paris:', error);
             return res.status(500).json({ error: 'Erreur lors de la récuperation des données de qualité de l\'air a Paris, Error : '+error });
         }
     });
+    res.status(200).json({ message: 'Le CRON a été démarré avec succès.' });
 };
 
 exports.getMostPollutedDatetime = async (req, res) => {

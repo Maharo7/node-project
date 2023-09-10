@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  node-app:
+    container_name: my-node-app
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - IQAirUrl=${IQAirUrl}
+      - API_KEY=${API_KEY}
+      - endPoints1=${endPoints1}
+      - MONGODB_URI=${MONGODB_URI}

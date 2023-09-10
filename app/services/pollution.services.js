@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 const envConfig = require('../config/env.config');
 const { PollutionSchema } = require('../models/pollution.models');
@@ -5,9 +6,9 @@ const mongoose = require('mongoose');
 const Pollution = mongoose.model(envConfig.collection,PollutionSchema);
 
 exports.getPollutionByCoord = async (lat, lon) => {
-    const apiKey = envConfig.API_KEY;
-    const baseUrl = envConfig.IQAirUrl;
-    const endpoints = envConfig.endPoints1;
+    const apiKey =  process.env.API_KEY;
+    const baseUrl =  process.env.IQAirUrl;
+    const endpoints =  process.env.endPoints1;
 
     try {
         const response = await axios.get(`${baseUrl}${endpoints}?lat=${lat}&lon=${lon}&key=${apiKey}`);
