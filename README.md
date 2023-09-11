@@ -7,13 +7,13 @@ utiliser npm pour l'installation
 ```bash
 npm install
 ```
-Si vous utiliser docker, pull l'image dans dockerhub et le lancer dans docker
+Si vous utilisé docker, pull l'image dans dockerhub et le lancer dans docker
 ```bash
 docker pull maharo7/node-app:myfirstimagepush
 ```
 
 ## Utilisation
-Si vous avez telecharger le code sur github :
+Si vous avez telechargé le code sur github :
 pour lancer l'application :
 ```bash
 npm start
@@ -26,9 +26,9 @@ pour lancer le deuxieme test :
 ```bash
 npm test2
 ```
-Utiliser postman ou un logiciel similaure pour envoyer les requettes
+Utiliser postman ou un logiciel similaure pour envoyer les requetes
 
-### Liste des requettes
+### Liste des requetes
 
 ```javascript
 
