@@ -23,7 +23,7 @@ describe('Integration Test for startCron', () => {
   
       //Disconnect to the real base before connecting to the factice base
       await mongoose.disconnect();
-      // Connectez-vous à la base de données en mémoire
+     // Connect to factice database
       await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
   
       // create a sanbox server with sinon 
